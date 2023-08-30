@@ -34,7 +34,7 @@ echo "################## Image: $image_name "
 echo "################## GPUS: $3 ##########################################"
 echo "######################################################################"
 
-docker run -it -v $volume_to_mount:/mounted_volume $use_gpus --net=host --env=DISPLAY $image_name
+docker run -it -v $volume_to_mount:/mounted_volume $use_gpus --net=host --env=DISPLAY -v /dev:/dev --group-add dialout --privileged $image_name
 
 echo "######################################################################"
 echo "###################### Exiting Container #############################"
