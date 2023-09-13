@@ -78,21 +78,72 @@ RUN pip3 install -U argcomplete
 
 RUN apt-get update
 
-#RUN python3 -m pip install -y \
-#    megapi \
-#    pyserial
-
-
 # For all homeworks
-RUN python3 -m pip install megapi pyserial
-# apriltags for Homework2+
-RUN git clone https://github.com/AprilRobotics/apriltag.git
-RUN cd apriltag && cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --target install
+RUN python3 -m pip install megapi
+RUN python3 -m pip install pyserial
 
-# install gstreamer for using hte onboard cameras
-RUN apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
+# Add 'th.daemon = True' to the megapi python3 code so that when we ctrl-c the code, the motors will stop instead of keep running
+# RUN sed -i $'86i\\\t\\\tth.daemon = True' /usr/local/lib/python3.10/dist-packages/megapi_python3.py
+
+# # apriltags for Homework2+
+RUN cd / && git clone https://github.com/AprilRobotics/apriltag.git
+RUN cd /apriltag && cmake -B build -DCMAKE_BUILD_TYPE=Release
+RUN cd /apriltag && cmake --build build --target install
+
+# # install gstreamer for using hte onboard cameras
+RUN apt-get update && apt-get install -y \
+    libgstreamer1.0-dev \
+    libgstreamer-plugins-base1.0-dev \
+    libgstreamer-plugins-bad1.0-dev \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad \
+    gstreamer1.0-plugins-ugly \
+    gstreamer1.0-libav \
+    gstreamer1.0-tools \
+    gstreamer1.0-x \
+    gstreamer1.0-alsa \
+    gstreamer1.0-gl \
+    gstreamer1.0-gtk3 \
+    gstreamer1.0-qt5 \
+    gstreamer1.0-pulseaudio
 
 
+RUN apt-get install -y unzip && apt-get install -y wget && apt-get install -y build-essential checkinstall && apt-get install -y sudo
+RUN apt-get install -y openssh-server usbutils
+RUN apt-get install -y adb coreutils coreutils fakechroot fakeroot kmod libc6-arm64-cross qemu-user-static udev
 
 
+# COPY /usr/lib /usr/lib
 
+# RUN ln -s /opt/qcom/usr/bin/wcap-decode.weston /usr/bin/wcap-decode
+# RUN ln -s /opt/qcom/usr/bin/weston-calibrator.weston /usr/bin/weston-calibrator
+# RUN ln -s /opt/qcom/usr/bin/weston-clickdot.weston /usr/bin/weston-clickdot
+# RUN ln -s /opt/qcom/usr/bin/weston-cliptest.weston /usr/bin/weston-cliptest
+# RUN ln -s /opt/qcom/usr/bin/weston-dnd.weston /usr/bin/weston-dnd
+# RUN ln -s /opt/qcom/usr/bin/weston-eventdemo.weston /usr/bin/weston-eventdemo
+# RUN ln -s /opt/qcom/usr/bin/weston-flower.weston /usr/bin/weston-flower
+# RUN ln -s /opt/qcom/usr/bin/weston-fullscreen.weston /usr/bin/weston-fullscreen
+# RUN ln -s /opt/qcom/usr/bin/weston-image.weston /usr/bin/weston-image
+# RUN ln -s /opt/qcom/usr/bin/weston-info.weston /usr/bin/weston-info
+# RUN ln -s /opt/qcom/usr/bin/weston-multi-resource.weston /usr/bin/weston-multi-resource
+# RUN ln -s /opt/qcom/usr/bin/weston-resizor.weston /usr/bin/weston-resizor
+# RUN ln -s /opt/qcom/usr/bin/weston-scaler.weston /usr/bin/weston-scaler
+# RUN ln -s /opt/qcom/usr/bin/weston-simple-egl.weston /usr/bin/weston-simple-egl
+# RUN ln -s /opt/qcom/usr/bin/weston-simple-shm.weston /usr/bin/weston-simple-shm
+# RUN ln -s /opt/qcom/usr/bin/weston-simple-touch.weston /usr/bin/weston-simple-touch
+# RUN ln -s /opt/qcom/usr/bin/weston-smoke.weston /usr/bin/weston-smoke
+# RUN ln -s /opt/qcom/usr/bin/weston-terminal.weston /usr/bin/weston-terminal
+# RUN ln -s /opt/qcom/usr/bin/weston-stacking.weston /usr/bin/weston-stacking
+# RUN ln -s /opt/qcom/usr/bin/weston-transformed.weston /usr/bin/weston-transformed
+# RUN ln -s /opt/qcom/usr/bin/weston.weston /usr/bin/weston
+
+# RUN ln -s /opt/qcom/usr/lib/libweston /usr/lib/libweston
+# RUN ln -s /opt/qcom/usr/lib/libweston-3.so.0 /usr/lib/libweston-3.so.0
+# RUN ln -s /opt/qcom/usr/lib/libweston-3.so.0.0.0 /usr/lib/libweston-3.so.0.0.0
+# RUN ln -s /opt/qcom/usr/lib/libweston-desktop-3.so.0 /usr/lib/libweston-desktop-3.so.0
+# RUN ln -s /opt/qcom/usr/lib/libweston-desktop-3.so.0.0.0 /usr/lib/libweston-desktop-3.so.0.0.0
+
+
+# ADD /usr/lib/libweston-3 /usr/lib/libweston-3
+# ADD /usr/lib/weston /usr/lib/weston

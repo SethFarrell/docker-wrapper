@@ -27,10 +27,7 @@
 # Returns true if a docker container with the specified name does NOT exist
 # [ ! "$(docker ps -a | grep <name>)" ]
 
-docker run -it -v /etc/ssh/sshd_config:/etc/ssh/sshd_config:rw -v /opt/qcom:/opt/qcom:rw -v /usr/lib:/usr/lib:rw -v /data/misc/wifi:/data/misc/wifi:rw -v ~:/home/workspace:rw -v /dev:/dev:rw -w /home/workspace --net=host --env=DISPLAY --group-add dialout --name rb5_container --privileged rb5:ros2_humble
-# docker exec rb5_container ls /usr/bin | grep weston | awk 'system("ln -sf /opt/qcom/usr/bin/"$1".weston /usr/bin/"$1)'
-# docker exec -it rb5_container bash
-#docker exec -it -v /etc/ssh/sshd_config:/etc/ssh/sshd_config -v /data/misc/wifi:/data/misc/wifi:rw -v ~:/home/workspace:rw --env="QT_X11_NO_MITSHM=1" -v /tmp/.X11-unix:/tmp/.X11-unix:rw -w /home/workspace --net=host --env=DISPLAY -v /dev:/dev --group-add dialout --privileged rb5_container bash
+docker run -it -v /etc:/etc:rw -v /data/misc/wifi:/data/misc/wifi:rw -v ~:/home/workspace:rw -v /dev:/dev:rw -w /home/workspace --net=host --env=DISPLAY --group-add dialout --privileged rb5:ros1_melodic
 
 echo "######################################################################"
 echo "###################### Exiting Container #############################"
@@ -41,7 +38,7 @@ docker container prune -f
 echo "############################## Done ##################################"
 
 # Clear the screen
-#clear
+clear
 
 echo "####################################################################################"
 echo "####################################################################################"
