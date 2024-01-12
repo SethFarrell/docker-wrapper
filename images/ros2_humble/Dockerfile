@@ -63,7 +63,7 @@ RUN apt-get update
 #RUN sudo apt update && sudo apt upgrade -y
 
 RUN sudo apt-get install -y ros-humble-desktop
-RUN sudo apt-get install ros-humble-ros-base
+#RUN sudo apt-get install ros-humble-ros-base
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 #RUN sudo apt install -y python3-pip
