@@ -70,4 +70,7 @@ RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN sudo apt-get install -y python3-colcon-common-extensions
 RUN pip3 install -U argcomplete
 
+RUN apt install -y ros-humble-librealsense2*
+RUN apt install -y ros-humble-realsense2-*
+
 RUN apt-get update

@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t ros2:humble .
+docker build -t ros2:humble-rs .
