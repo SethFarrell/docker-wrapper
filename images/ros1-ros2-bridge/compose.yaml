@@ -1,3 +1,6 @@
+version: "3"
+
+services:
   ros1_bridge:
     container_name: ros1_bridge
     image: ros:galactic-ros1-bridge-focal
